@@ -33,10 +33,11 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
+
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
@@ -47,7 +48,35 @@
 
 <body>
     <!-- Content -->
-    @yield('content')
+    @if (Request::segment(1) == '')
+        @yield('login')
+    @else
+        <!-- Layout wrapper -->
+        <div class="layout-wrapper layout-content-navbar">
+            <div class="layout-container">
+                <!-- Sidebar -->
+                @include('components.sidebar')
+                <!-- Layout container -->
+                <div class="layout-page">
+                    <!-- Navbar -->
+                    @include('components.navbar')
+
+                    <!-- Content wrapper -->
+                    <div class="content-wrapper">
+                        <!-- Content -->
+                        @yield('content')
+
+                        <!-- Footer -->
+                        @include('components.footer')
+
+                        <div class="content-backdrop fade"></div>
+                    </div>
+                    <!-- Content wrapper -->
+                </div>
+                <!-- / Layout page -->
+            </div>
+    @endif
+
 
 
     <!-- Core JS -->
@@ -61,11 +90,13 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

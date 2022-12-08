@@ -4,7 +4,7 @@
     Login - Nikel Corp
 @endsection
 
-@section('content')
+@section('login')
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">

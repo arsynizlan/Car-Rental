@@ -19,3 +19,6 @@ require __DIR__ . '/web/auth.php';
 
 /** Dashboard */
 require __DIR__ . '/web/dashboard.php';
+
+/** Cars */
+require __DIR__ . '/web/cars.php';
