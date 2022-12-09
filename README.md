@@ -9,6 +9,7 @@
 
 ## Tech Stack
 Laravel v9.43.0 with PHP 8.1
+
 Postgresql v15 with pgAdmin4 
 
 
