@@ -22,3 +22,6 @@ require __DIR__ . '/web/dashboard.php';
 
 /** Cars */
 require __DIR__ . '/web/cars.php';
+
+/** Booking Cars */
+require __DIR__ . '/web/bookings.php';
