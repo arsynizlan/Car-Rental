@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Car;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
 {
@@ -26,7 +30,7 @@ class CarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -39,7 +43,60 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'lisence_plate' => 'unique:cars',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $json = [
+                'msg'       => 'Plat Nomor sudah digunakan!',
+                'status'    => false
+            ];
+            return Response::json($json);
+        } elseif ($request->name == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan nama mobil',
+                'status'    => false
+            ];
+        } elseif ($request->type == NULL) {
+            $json = [
+                'msg'       => 'Mohon pilih jenis mobil',
+                'status'    => false
+            ];
+        } elseif ($request->lisence_plate == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan plat nomor mobil',
+                'status'    => false
+            ];
+        } elseif ($request->lisence_plate == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan plat nomor mobil',
+                'status'    => false
+            ];
+        } else {
+            try {
+                DB::transaction(function () use ($request) {
+                    Car::create([
+                        'name' => $request->name,
+                        'type' => $request->type,
+                        'lisence_plate' => $request->lisence_plate,
+                        'owner' => $request->owner
+                    ]);
+                });
+
+                $json = [
+                    'msg' => 'Mobil berhasil ditambahkan',
+                    'status' => true
+                ];
+            } catch (Exception $e) {
+                $json = [
+                    'msg'       => 'Error',
+                    'status'    => false,
+                    'e'         => $e
+                ];
+            }
+        }
+        return Response::json($json);
     }
 
     /**
@@ -90,9 +147,62 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Car $car)
+    public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'lisence_plate' => Rule::unique('cars', 'lisence_plate')->ignore($id),
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $json = [
+                'msg'       => 'Plat Nomor sudah digunakan!',
+                'status'    => false
+            ];
+            return Response::json($json);
+        } elseif ($request->name == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan nama mobil',
+                'status'    => false
+            ];
+        } elseif ($request->type == NULL) {
+            $json = [
+                'msg'       => 'Mohon pilih jenis mobil',
+                'status'    => false
+            ];
+        } elseif ($request->lisence_plate == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan plat nomor mobil',
+                'status'    => false
+            ];
+        } elseif ($request->lisence_plate == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan plat nomor mobil',
+                'status'    => false
+            ];
+        } else {
+            try {
+                DB::transaction(function () use ($request, $id) {
+                    Car::where('id', $id)->update([
+                        'name' => $request->name,
+                        'type' => $request->type,
+                        'lisence_plate' => $request->lisence_plate,
+                        'owner' => $request->owner
+                    ]);
+                });
+
+                $json = [
+                    'msg' => 'Mobil berhasil disunting',
+                    'status' => true
+                ];
+            } catch (Exception $e) {
+                $json = [
+                    'msg'       => 'Error',
+                    'status'    => false,
+                    'e'         => $e
+                ];
+            }
+        }
+        return Response::json($json);
     }
 
     /**
@@ -101,8 +211,32 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $car)
+    public function destroy($id)
     {
-        //
+        try {
+            $car = Car::find($id);
+            if (!$car) {
+                $json = [
+                    'msg' => 'Data Tidak Ditemukan',
+                    'status' => false,
+                ];
+            }
+            DB::transaction(function () use ($id) {
+                DB::table('cars')->where('id', $id)->delete();
+            });
+
+            $json = [
+                'msg' => 'Mobil berhasil dihapus',
+                'status' => true
+            ];
+        } catch (Exception $e) {
+            $json = [
+                'msg' => 'error',
+                'status' => false,
+                'e' => $e,
+            ];
+        };
+
+        return Response::json($json);
     }
 }

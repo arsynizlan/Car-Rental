@@ -25,13 +25,13 @@ class CarSeeder extends Seeder
             'name' => 'Mitsubishi',
             'type' => 'Angkutan Barang',
             'lisence_plate' => 'D1112ACF',
-            'owner' => 'Sewa'
+            'owner' => 'Sewaan'
         ]);
         Car::create([
             'name' => 'Hino',
             'type' => 'Angkutan Barang',
             'lisence_plate' => 'D1113ACF',
-            'owner' => 'Sewa'
+            'owner' => 'Sewaan'
         ]);
         Car::create([
             'name' => 'Honda CR-V',

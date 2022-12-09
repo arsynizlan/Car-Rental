@@ -36,8 +36,8 @@
     </div>
     <!-- / Content -->
 
-    {{-- @include('components.modals.cars.create')
-    @include('components.modals.cars.edit') --}}
+    @include('components.modals.cars.create')
+    @include('components.modals.cars.update')
 @endsection
 
 

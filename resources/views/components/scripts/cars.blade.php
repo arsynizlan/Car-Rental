@@ -1,81 +1,83 @@
 <script>
     let car_id
 
-    // const create = () => {
-    //     $('#createForm').trigger('reset');
-    //     $('#createModal').modal('show');
-    // }
+    const create = () => {
+        $('#createForm').trigger('reset');
+        $('#createModal').modal('show');
+    }
 
-    // const deleteData = (id) => {
-    //     Swal.fire({
-    //         title: 'Apa anda yakin untuk menghapus mobil ini?',
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonText: 'Ya',
-    //         cancelButtonText: 'Tidak'
-    //     }).then((result) => {
-    //         Swal.close();
+    const deleteData = (id) => {
+        Swal.fire({
+            title: 'Apa anda yakin untuk menghapus mobil ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            Swal.close();
 
-    //         if (result.value) {
-    //             Swal.fire({
-    //                 title: 'Mohon tunggu',
-    //                 showConfirmButton: false,
-    //                 allowOutsideClick: false,
-    //                 willOpen: () => {
-    //                     Swal.showLoading()
-    //                 }
-    //             });
+            if (result.value) {
+                Swal.fire({
+                    title: 'Mohon tunggu',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    willOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
 
-    //             $.ajax({
-    //                 type: "delete",
-    //                 url: `/cars/${id}`,
-    //                 dataType: "json",
-    //                 success: function(response) {
-    //                     Swal.close();
-    //                     if (response.status) {
-    //                         Swal.fire(
-    //                             'Success!',
-    //                             response.msg,
-    //                             'success'
-    //                         )
-    //                         $('#table').DataTable().ajax.reload();
-    //                     } else {
-    //                         Swal.fire(
-    //                             'Error!',
-    //                             response.msg,
-    //                             'warning'
-    //                         )
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
+                $.ajax({
+                    type: "delete",
+                    url: `/cars/${id}`,
+                    dataType: "json",
+                    success: function(response) {
+                        Swal.close();
+                        if (response.status) {
+                            Swal.fire(
+                                'Success!',
+                                response.msg,
+                                'success'
+                            )
+                            $('#table').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                response.msg,
+                                'warning'
+                            )
+                        }
+                    }
+                });
+            }
+        });
+    }
 
-    // const edit = (id) => {
-    //     Swal.fire({
-    //         title: 'Mohon tunggu',
-    //         showConfirmButton: false,
-    //         allowOutsideClick: false,
-    //         willOpen: () => {
-    //             Swal.showLoading()
-    //         }
-    //     });
-    //     supplier_id = id;
+    const update = (id) => {
+        Swal.fire({
+            title: 'Mohon tunggu',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            willOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        car_id = id;
 
-    //     $.ajax({
-    //         type: "get",
-    //         url: `/supplier/${supplier_id}`,
-    //         dataType: "json",
-    //         success: function(response) {
-    //             $('#editname').val(response.name);
-    //             $('#editaddress').val(response.address);
+        $.ajax({
+            type: "get",
+            url: `/cars/${id}`,
+            dataType: "json",
+            success: function(response) {
+                $('#name-update').val(response.name);
+                $('#type-update').val(response.type);
+                $('#lisence_plate-update').val(response.lisence_plate);
+                $('#owner-update').val(response.owner);
 
-    //             Swal.close();
-    //             $('#editModal').modal('show');
-    //         }
-    //     })
-    // }
+                Swal.close();
+                $('#updateModal').modal('show');
+            }
+        })
+    }
 
     $(function() {
 
@@ -128,91 +130,90 @@
             ]
         });
 
-        // $('#createSubmit').click(function(e) {
-        //     e.preventDefault();
+        $('#createSubmit').click(function(e) {
+            e.preventDefault();
 
-        //     var formData = $('#createForm').serialize();
+            var formData = $('#createForm').serialize();
 
-        //     Swal.fire({
-        //         title: 'Mohon tunggu',
-        //         showConfirmButton: false,
-        //         allowOutsideClick: false,
-        //         willOpen: () => {
-        //             Swal.showLoading()
-        //         }
-        //     });
+            Swal.fire({
+                title: 'Mohon tunggu',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                willOpen: () => {
+                    Swal.showLoading()
+                }
+            });
 
-        //     $.ajax({
-        //         type: "post",
-        //         url: "/supplier",
-        //         data: formData,
-        //         dataType: "json",
-        //         cache: false,
-        //         processData: false,
-        //         success: function(data) {
-        //             Swal.close();
-        //             if (data.status) {
-        //                 Swal.fire(
-        //                     'Success!',
-        //                     data.msg,
-        //                     'success'
-        //                 )
+            $.ajax({
+                type: "post",
+                url: "/cars",
+                data: formData,
+                dataType: "json",
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    Swal.close();
+                    if (data.status) {
+                        Swal.fire(
+                            'Success!',
+                            data.msg,
+                            'success'
+                        )
+                        $('#createModal').modal('hide');
+                        $('#table').DataTable().ajax.reload();
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            data.msg,
+                            'warning'
+                        )
+                    }
+                }
+            })
+        });
 
-        //                 $('#createModal').modal('hide');
-        //                 $('#table').DataTable().ajax.reload();
-        //             } else {
-        //                 Swal.fire(
-        //                     'Error!',
-        //                     data.msg,
-        //                     'warning'
-        //                 )
-        //             }
-        //         }
-        //     })
-        // });
+        $('#updateSubmit').click(function(e) {
+            e.preventDefault();
 
-        // $('#editSubmit').click(function(e) {
-        //     e.preventDefault();
+            var formData = $('#updateForm').serialize();
 
-        //     var formData = $('#editForm').serialize();
+            Swal.fire({
+                title: 'Mohon tunggu',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                willOpen: () => {
+                    Swal.showLoading()
+                }
+            });
 
-        //     Swal.fire({
-        //         title: 'Mohon tunggu',
-        //         showConfirmButton: false,
-        //         allowOutsideClick: false,
-        //         willOpen: () => {
-        //             Swal.showLoading()
-        //         }
-        //     });
+            $.ajax({
+                type: "put",
+                url: `/cars/${car_id}`,
+                dataType: "json",
+                data: formData,
+                cache: false,
+                proccessData: false,
+                success: function(data) {
+                    Swal.close();
 
-        //     $.ajax({
-        //         type: "post",
-        //         url: `/supplier/${supplier_id}`,
-        //         dataType: "json",
-        //         data: formData,
-        //         cache: false,
-        //         proccessData: false,
-        //         success: function(data) {
-        //             Swal.close();
-
-        //             if (data.status) {
-        //                 Swal.fire(
-        //                     'Success!',
-        //                     data.msg,
-        //                     'success'
-        //                 )
-        //                 supplier_id = null;
-        //                 $('#editModal').modal('hide');
-        //                 $('#table').DataTable().ajax.reload();
-        //             } else {
-        //                 Swal.fire(
-        //                     'Error!',
-        //                     data.msg,
-        //                     'warning'
-        //                 )
-        //             }
-        //         }
-        //     });
-        // });
+                    if (data.status) {
+                        Swal.fire(
+                            'Success!',
+                            data.msg,
+                            'success'
+                        )
+                        supplier_id = null;
+                        $('#updateModal').modal('hide');
+                        $('#table').DataTable().ajax.reload();
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            data.msg,
+                            'warning'
+                        )
+                    }
+                }
+            });
+        });
     });
 </script>
