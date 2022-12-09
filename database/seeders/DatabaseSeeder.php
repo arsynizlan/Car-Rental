@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\CarSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AuthSeeder;
 
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AuthSeeder::class,
             UserSeeder::class,
+            CarSeeder::class
         ]);
     }
 }
