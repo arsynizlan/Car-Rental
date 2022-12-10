@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('service_histories', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('car_id');
+            $table->string('description');
+            $table->string('date');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ PHP Required 8.1
 3. Copy ```.env.example``` to ```.env```
 4. Run ```php artisan key:generate```
 4. Run ```php artisan migrate```
-4. Run ```php artisan migrate```
+4. Run ```php artisan db:seed```
 4. Run ```php artisan serve```
 6. You can see the project on ```127.0.0.1:8000```
 
