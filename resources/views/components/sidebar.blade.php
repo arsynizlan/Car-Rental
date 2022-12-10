@@ -36,6 +36,13 @@
         </li>
 
         <li class="menu-item">
+            <a href="{{ route('approvals.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-car"></i>
+                <div data-i18n="Permintaan Persetujuan">Permintaan Persetujuan</div>
+            </a>
+        </li>
+
+        <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Mobil">Mobil</div>
