@@ -10,9 +10,9 @@
 ## How to Install and Run the Project
 PHP Required 8.1
 
-1. ```git clone git@github.com:arsynizlan/Vehicle-Management-System.git```
-2. ```cd Vehicle-Management-System```
-3. ```composer install```
+1. Run```git clone git@github.com:arsynizlan/Vehicle-Management-System.git```
+2. Run```cd Vehicle-Management-System```
+3. Run```composer install```
 3. Copy ```.env.example``` to ```.env```
 4. Run ```php artisan key:generate```
 4. Run ```php artisan migrate```
