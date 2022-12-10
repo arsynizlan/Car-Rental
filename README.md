@@ -7,11 +7,25 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## How to Install and Run the Project
+PHP Required 8.1
+
+1. ```git clone git@github.com:arsynizlan/Vehicle-Management-System.git```
+2. ```cd Vehicle-Management-System```
+3. ```composer install```
+3. Copy ```.env.example``` to ```.env```
+4. Run ```php artisan key:generate```
+4. Run ```php artisan migrate```
+4. Run ```php artisan migrate```
+4. Run ```php artisan serve```
+6. You can see the project on ```127.0.0.1:8000```
+
 ## Tech Stack
 Laravel v9.43.0 with PHP 8.1
 
 Postgresql v15 with pgAdmin4 
 
+## Documentation
 DB Diagram : https://dbdiagram.io/d/636dfd0ac9abfc611171e5c1
 
 
