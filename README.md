@@ -12,6 +12,8 @@ Laravel v9.43.0 with PHP 8.1
 
 Postgresql v15 with pgAdmin4 
 
+DB Diagram : https://dbdiagram.io/d/636dfd0ac9abfc611171e5c1
+
 
 ## About Laravel
 
