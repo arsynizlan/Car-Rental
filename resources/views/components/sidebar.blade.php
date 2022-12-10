@@ -10,7 +10,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
+        <li class="menu-item {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -18,53 +18,38 @@
         </li>
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Data Master</span>
+            <span class="menu-header-text">Menu</span>
         </li>
+        @role('Admin')
+            <li class="menu-item {{ Request::segment(1) === 'cars' ? 'active' : '' }}">
+                <a href="{{ route('cars.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-car"></i>
+                    <div data-i18n="Mobil">Mobil</div>
+                </a>
+            </li>
 
-        <li class="menu-item">
-            <a href="{{ route('cars.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-car"></i>
-                <div data-i18n="Mobil">Mobil</div>
-            </a>
-        </li>
+            <li class="menu-item {{ Request::segment(1) === 'bookings' ? 'active' : '' }}">
+                <a href="{{ route('bookings.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-plus-circle'></i>
+                    <div data-i18n="Pemesanan Mobil">Pemesanan Mobil</div>
+                </a>
+            </li>
 
-        <li class="menu-item">
-            <a href="{{ route('bookings.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-car"></i>
-                <div data-i18n="Pemesanan Mobil">Pemesanan Mobil</div>
-            </a>
-        </li>
-
-        <li class="menu-item">
-            <a href="{{ route('approvals.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-car"></i>
-                <div data-i18n="Permintaan Persetujuan">Permintaan Persetujuan</div>
-            </a>
-        </li>
-
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Mobil">Mobil</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <li class="menu-item {{ Request::segment(1) === 'service-histories' ? 'active' : '' }}">
+                <a href="{{ route('service-histories.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bxs-calendar'></i>
+                    <div data-i18n="Riwayat Service">Riwayat Service</div>
+                </a>
+            </li>
+        @endrole
+        @role('Responsible Person')
+            <li class="menu-item {{ Request::segment(1) === 'approvals' ? 'active' : '' }}">
+                <a href="{{ route('approvals.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bxs-edit'></i>
+                    <div data-i18n="Permintaan Persetujuan">Permintaan Persetujuan</div>
+                </a>
+            </li>
+        @endrole
 
     </ul>
 </aside>

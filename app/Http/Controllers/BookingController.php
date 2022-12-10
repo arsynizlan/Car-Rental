@@ -67,7 +67,7 @@ class BookingController extends Controller
                 'msg'       => 'Mohon isi tanggal kembali mobil',
                 'status'    => false
             ];
-        } elseif ($request->loan_date < $request->returned_date) {
+        } elseif ($request->loan_date > $request->returned_date) {
             $json = [
                 'msg'       => 'Tanggal Kembali Mobil Tidak Valid',
                 'status'    => false

@@ -28,3 +28,6 @@ require __DIR__ . '/web/bookings.php';
 
 /** Approval Request Cars */
 require __DIR__ . '/web/approvals.php';
+
+/** Service History */
+require __DIR__ . '/web/serviceHistories.php';

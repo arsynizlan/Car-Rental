@@ -14,4 +14,9 @@ class Car extends Model
     {
         return $this->hasOne(Booking::class);
     }
+
+    public function ServiceHistories()
+    {
+        return $this->hasOne(ServiceHistories::class);
+    }
 }
