@@ -147,8 +147,32 @@ class ServiceHistoriesController extends Controller
      * @param  \App\Models\ServiceHistories  $serviceHistories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceHistories $serviceHistories)
+    public function destroy($id)
     {
-        //
+        try {
+            $history = ServiceHistories::find($id);
+            if (!$history) {
+                $json = [
+                    'msg' => 'Data Tidak Ditemukan',
+                    'status' => false,
+                ];
+            }
+            DB::transaction(function () use ($id) {
+                DB::table('service_histories')->where('id', $id)->delete();
+            });
+
+            $json = [
+                'msg' => 'Riwayat berhasil dihapus',
+                'status' => true
+            ];
+        } catch (Exception $e) {
+            $json = [
+                'msg' => 'error',
+                'status' => false,
+                'e' => $e,
+            ];
+        };
+
+        return Response::json($json);
     }
 }

@@ -6,51 +6,51 @@
         $('#createModal').modal('show');
     }
 
-    // const deleteData = (id) => {
-    //     Swal.fire({
-    //         title: 'Apa anda yakin untuk menghapus pesanan ini?',
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonText: 'Ya',
-    //         cancelButtonText: 'Tidak'
-    //     }).then((result) => {
-    //         Swal.close();
+    const deleteData = (id) => {
+        Swal.fire({
+            title: 'Apa anda yakin untuk menghapus riwayat ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            Swal.close();
 
-    //         if (result.value) {
-    //             Swal.fire({
-    //                 title: 'Mohon tunggu',
-    //                 showConfirmButton: false,
-    //                 allowOutsideClick: false,
-    //                 willOpen: () => {
-    //                     Swal.showLoading()
-    //                 }
-    //             });
+            if (result.value) {
+                Swal.fire({
+                    title: 'Mohon tunggu',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    willOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
 
-    //             $.ajax({
-    //                 type: "delete",
-    //                 url: `/bookings/${id}`,
-    //                 dataType: "json",
-    //                 success: function(response) {
-    //                     Swal.close();
-    //                     if (response.status) {
-    //                         Swal.fire(
-    //                             'Success!',
-    //                             response.msg,
-    //                             'success'
-    //                         )
-    //                         $('#table').DataTable().ajax.reload();
-    //                     } else {
-    //                         Swal.fire(
-    //                             'Error!',
-    //                             response.msg,
-    //                             'warning'
-    //                         )
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
+                $.ajax({
+                    type: "delete",
+                    url: `/service-histories/${id}`,
+                    dataType: "json",
+                    success: function(response) {
+                        Swal.close();
+                        if (response.status) {
+                            Swal.fire(
+                                'Success!',
+                                response.msg,
+                                'success'
+                            )
+                            $('#table').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                response.msg,
+                                'warning'
+                            )
+                        }
+                    }
+                });
+            }
+        });
+    }
 
     // const update = (id) => {
     //     Swal.fire({
