@@ -41,7 +41,7 @@
     <!-- / Content -->
 
     @include('components.modals.bookings.create')
-    {{-- @include('components.modals.cars.update') --}}
+    @include('components.modals.bookings.update')
 @endsection
 
 

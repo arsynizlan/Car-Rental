@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Carbon\Carbon;
 use App\Models\Car;
 use App\Models\User;
 use App\Models\Booking;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
-class ApprovalController extends Controller
+class BookingHistoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,13 +19,12 @@ class ApprovalController extends Controller
     public function index()
     {
         $data = [
-            'script' => 'components.scripts.approvals',
+            'script' => 'components.scripts.bookingHistories',
             'cars' => Car::all()->pluck('name', 'id'),
             'responsible_person' => User::Role('Responsible Person')->pluck('name', 'id'),
         ];
-        return view('pages.approvals.index', $data);
+        return view('pages.bookingHistories.index', $data);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -64,8 +60,7 @@ class ApprovalController extends Controller
                 ->first();
             return Response::json($data);
         }
-        $data = Booking::where('status', '=', '2')->orderBy('id', 'desc')
-            ->where('user_id', Auth::user()->id)
+        $data = Booking::where('status', '!=', '0')->orderBy('id', 'desc')
             ->get();
         return datatables()
             ->of($data)
@@ -100,13 +95,8 @@ class ApprovalController extends Controller
                     return '<span class="badge bg-success">' . 'Disetujui' . '</span>';
                 }
             })
-
-            ->addColumn('action', function ($row) {
-                $data = [
-                    'id' => $row->id
-                ];
-
-                return view('components.buttons.approvals', $data);
+            ->addColumn('user_id', function ($row) {
+                return $row->user->name;
             })
             ->rawColumns(['action', 'lisence_plate', 'status'])
             ->make(true);
@@ -132,25 +122,7 @@ class ApprovalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            DB::transaction(function () use ($request, $id) {
-                Booking::where('id', $id)->update([
-                    'status' => $request->status,
-                ]);
-            });
-
-            $json = [
-                'msg' => 'Status berhasil disunting',
-                'status' => true
-            ];
-        } catch (Exception $e) {
-            $json = [
-                'msg'       => 'Error',
-                'status'    => false,
-                'e'         => $e
-            ];
-        }
-        return Response::json($json);
+        //
     }
 
     /**

@@ -52,35 +52,35 @@
     //     });
     // }
 
-    const update = (id) => {
-        Swal.fire({
-            title: 'Mohon tunggu',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            willOpen: () => {
-                Swal.showLoading()
-            }
-        });
-        approvals_id = id;
+    // const update = (id) => {
+    //     Swal.fire({
+    //         title: 'Mohon tunggu',
+    //         showConfirmButton: false,
+    //         allowOutsideClick: false,
+    //         willOpen: () => {
+    //             Swal.showLoading()
+    //         }
+    //     });
+    //     approvals_id = id;
 
-        $.ajax({
-            type: "get",
-            url: `/approvals/${id}`,
-            dataType: "json",
-            success: function(response) {
-                $('#driver_name-update').val(response.driver_name);
-                $('#car_id-update').val(response.car_id);
-                $('#lisence_plate-update').val(response.lisence_plate);
-                $('#date_from-update').val(response.date_from);
-                $('#date_to-update').val(response.date_to);
-                $('#user_id-update').val(response.user_id);
-                $('#status-update').val(response.status);
+    //     $.ajax({
+    //         type: "get",
+    //         url: `/approvals/${id}`,
+    //         dataType: "json",
+    //         success: function(response) {
+    //             $('#driver_name-update').val(response.driver_name);
+    //             $('#car_id-update').val(response.car_id);
+    //             $('#lisence_plate-update').val(response.lisence_plate);
+    //             $('#date_from-update').val(response.date_from);
+    //             $('#date_to-update').val(response.date_to);
+    //             $('#user_id-update').val(response.user_id);
+    //             $('#status-update').val(response.status);
 
-                Swal.close();
-                $('#updateModal').modal('show');
-            }
-        })
-    }
+    //             Swal.close();
+    //             $('#updateModal').modal('show');
+    //         }
+    //     })
+    // }
 
     $(function() {
 
@@ -105,7 +105,7 @@
             responsive: true,
             serverSide: true,
             ajax: {
-                url: '/approvals/data'
+                url: '/approval-histories/data'
             },
             "columns": [{
                     data: 'DT_RowIndex',
@@ -133,11 +133,7 @@
                 {
                     data: 'status',
                 },
-                {
-                    data: 'action',
-                    orderable: false,
-                    searchable: false
-                },
+
 
             ]
         });
@@ -184,47 +180,47 @@
         //     })
         // });
 
-        $('#updateSubmit').click(function(e) {
-            e.preventDefault();
+        // $('#updateSubmit').click(function(e) {
+        //     e.preventDefault();
 
-            var formData = $('#updateForm').serialize();
+        //     var formData = $('#updateForm').serialize();
 
-            Swal.fire({
-                title: 'Mohon tunggu',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                willOpen: () => {
-                    Swal.showLoading()
-                }
-            });
+        //     Swal.fire({
+        //         title: 'Mohon tunggu',
+        //         showConfirmButton: false,
+        //         allowOutsideClick: false,
+        //         willOpen: () => {
+        //             Swal.showLoading()
+        //         }
+        //     });
 
-            $.ajax({
-                type: "put",
-                url: `/approvals/${approvals_id}`,
-                dataType: "json",
-                data: formData,
-                cache: false,
-                proccessData: false,
-                success: function(data) {
-                    Swal.close();
+        //     $.ajax({
+        //         type: "put",
+        //         url: `/approvals/${approvals_id}`,
+        //         dataType: "json",
+        //         data: formData,
+        //         cache: false,
+        //         proccessData: false,
+        //         success: function(data) {
+        //             Swal.close();
 
-                    if (data.status) {
-                        Swal.fire(
-                            'Success!',
-                            data.msg,
-                            'success'
-                        )
-                        $('#updateModal').modal('hide');
-                        $('#table').DataTable().ajax.reload();
-                    } else {
-                        Swal.fire(
-                            'Error!',
-                            data.msg,
-                            'warning'
-                        )
-                    }
-                }
-            });
-        });
+        //             if (data.status) {
+        //                 Swal.fire(
+        //                     'Success!',
+        //                     data.msg,
+        //                     'success'
+        //                 )
+        //                 $('#updateModal').modal('hide');
+        //                 $('#table').DataTable().ajax.reload();
+        //             } else {
+        //                 Swal.fire(
+        //                     'Error!',
+        //                     data.msg,
+        //                     'warning'
+        //                 )
+        //             }
+        //         }
+        //     });
+        // });
     });
 </script>

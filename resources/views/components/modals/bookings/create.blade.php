@@ -27,12 +27,12 @@
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
-                            <label for="loan_date" class="form-label">Tanggal Pinjam</label>
-                            <input type="date" id="loan_date" name="loan_date" class="form-control" />
+                            <label for="date_from" class="form-label">Tanggal Pinjam</label>
+                            <input type="date" id="date_from" name="date_from" class="form-control" />
                         </div>
                         <div class="col mb-0">
-                            <label for="returned_date" class="form-label">Tanggal Kembali</label>
-                            <input type="date" id="returned_date" name="returned_date" class="form-control" />
+                            <label for="date_to" class="form-label">Tanggal Kembali</label>
+                            <input type="date" id="date_to" name="date_to" class="form-control" />
                         </div>
                     </div>
                     <div class="row">

@@ -26,8 +26,14 @@ require __DIR__ . '/web/cars.php';
 /** Booking Cars */
 require __DIR__ . '/web/bookings.php';
 
+/** Booking Histories */
+require __DIR__ . '/web/bookingHistories.php';
+
 /** Approval Request Cars */
 require __DIR__ . '/web/approvals.php';
+
+/** Approval Histories Cars */
+require __DIR__ . '/web/approvalHistories.php';
 
 /** Service History */
 require __DIR__ . '/web/serviceHistories.php';

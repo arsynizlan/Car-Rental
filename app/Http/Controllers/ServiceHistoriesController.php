@@ -105,16 +105,16 @@ class ServiceHistoriesController extends Controller
                 return $row->car->name;
             })
             ->addColumn('lisence_plate', function ($row) {
-                return $row->car->lisence_plate;
+                return '<span class="badge bg-dark">' . $row->car->lisence_plate . '</span>';
             })
             ->addColumn('action', function ($row) {
                 $data = [
                     'id' => $row->id
                 ];
 
-                return view('components.buttons.bookings', $data);
+                return view('components.buttons.serviceHistories', $data);
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'lisence_plate'])
             ->make(true);
     }
 
@@ -138,7 +138,44 @@ class ServiceHistoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->car == NULL) {
+            $json = [
+                'msg'       => 'Mohon pilih mobil',
+                'status'    => false
+            ];
+        } elseif ($request->date == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan tanggal service mobil',
+                'status'    => false
+            ];
+        } elseif ($request->description == NULL) {
+            $json = [
+                'msg'       => 'Mohon berikan deskripsi',
+                'status'    => false
+            ];
+        } else {
+            try {
+                DB::transaction(function () use ($request, $id) {
+                    ServiceHistories::where('id', $id)->update([
+                        'car_id' => $request->car,
+                        'date' => $request->date,
+                        'description' => $request->description,
+                    ]);
+                });
+
+                $json = [
+                    'msg' => 'Riwayat berhasil disunting',
+                    'status' => true
+                ];
+            } catch (Exception $e) {
+                $json = [
+                    'msg'       => 'Error',
+                    'status'    => false,
+                    'e'         => $e
+                ];
+            }
+        }
+        return Response::json($json);
     }
 
     /**

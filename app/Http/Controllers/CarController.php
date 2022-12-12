@@ -117,7 +117,9 @@ class CarController extends Controller
         return datatables()
             ->of($data)
             ->addIndexColumn()
-
+            ->addColumn('lisence_plate', function ($row) {
+                return '<span class="badge bg-dark">' . $row->lisence_plate . '</span>';
+            })
             ->addColumn('action', function ($row) {
                 $data = [
                     'id' => $row->id
@@ -125,7 +127,7 @@ class CarController extends Controller
 
                 return view('components.buttons.cars', $data);
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'lisence_plate'])
             ->make(true);
     }
 

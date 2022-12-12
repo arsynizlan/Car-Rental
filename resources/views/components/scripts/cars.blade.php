@@ -202,7 +202,6 @@
                             data.msg,
                             'success'
                         )
-                        supplier_id = null;
                         $('#updateModal').modal('hide');
                         $('#table').DataTable().ajax.reload();
                     } else {

@@ -27,14 +27,13 @@
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
-                            <label for="loan_date" class="form-label">Tanggal Pinjam</label>
-                            <input type="date" id="loan_date-update" name="loan_date" class="form-control"
+                            <label for="date_from" class="form-label">Tanggal Pinjam</label>
+                            <input type="date" id="date_from-update" name="date_from" class="form-control"
                                 readonly />
                         </div>
                         <div class="col mb-0">
-                            <label for="returned_date" class="form-label">Tanggal Kembali</label>
-                            <input type="date" id="returned_date-update" name="returned_date" class="form-control"
-                                readonly />
+                            <label for="date_to" class="form-label">Tanggal Kembali</label>
+                            <input type="date" id="date_to-update" name="date_to" class="form-control" readonly />
                         </div>
                     </div>
                     <div class="row">
@@ -53,9 +52,9 @@
                             <label for="status" class="form-label">Status</label>
                             <select id="status-update" name="status" class="form-select">
                                 {{-- <option value="" selected disabled>Pilih status persetujuan</option> --}}
-                                <option value="0" selected disabled>Menunggu Persetujuan</option>
-                                <option value="1">Tidak Disetujui</option>
-                                <option value="2">Disetujui</option>
+                                <option value="2" selected disabled>Menunggu Persetujuan</option>
+                                <option value="3">Ditolak</option>
+                                <option value="4">Disetujui</option>
                             </select>
                         </div>
                     </div>

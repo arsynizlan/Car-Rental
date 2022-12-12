@@ -57,17 +57,17 @@ class BookingController extends Controller
                 'msg'       => 'Mohon pilih mobil',
                 'status'    => false
             ];
-        } elseif ($request->loan_date == NULL) {
+        } elseif ($request->date_from == NULL) {
             $json = [
                 'msg'       => 'Mohon isi tanggal pinjam mobil',
                 'status'    => false
             ];
-        } elseif ($request->returned_date == NULL) {
+        } elseif ($request->date_to == NULL) {
             $json = [
                 'msg'       => 'Mohon isi tanggal kembali mobil',
                 'status'    => false
             ];
-        } elseif ($request->loan_date > $request->returned_date) {
+        } elseif ($request->date_from > $request->date_to) {
             $json = [
                 'msg'       => 'Tanggal Kembali Mobil Tidak Valid',
                 'status'    => false
@@ -83,8 +83,8 @@ class BookingController extends Controller
                     Booking::create([
                         'driver_name' => $request->driver_name,
                         'car_id' => $request->car_id,
-                        'loan_date' => $request->loan_date,
-                        'returned_date' => $request->returned_date,
+                        'date_from' => $request->date_from,
+                        'date_to' => $request->date_to,
                         'user_id' => $request->responsible_person
                     ]);
                 });
@@ -117,7 +117,7 @@ class BookingController extends Controller
                 ->first();
             return Response::json($data);
         }
-        $data = Booking::orderBy('id', 'desc')
+        $data = Booking::where('status', '=', 0)->orderBy('id', 'desc')
             ->get();
         return datatables()
             ->of($data)
@@ -126,11 +126,11 @@ class BookingController extends Controller
                 return $row->car->name;
             })
             ->addColumn('lisence_plate', function ($row) {
-                return $row->car->lisence_plate;
+                return '<span class="badge bg-dark">' . $row->car->lisence_plate . '</span>';
             })
             ->addColumn('duration', function ($row) {
-                $start_Date = $row->loan_date;
-                $end_Date = $row->returned_date;
+                $start_Date = $row->date_from;
+                $end_Date = $row->date_to;
                 $start = Carbon::parse($start_Date);
                 $end = Carbon::parse($end_Date);
                 $length = $start->diffInDays($end);
@@ -141,11 +141,15 @@ class BookingController extends Controller
             })
             ->addColumn('status', function ($row) {
                 if ($row->status == 0) {
-                    return 'Menunggu Persetujuan';
+                    return '<span class="badge bg-info">' . 'Menunggu Persetujuan Admin' . '</span>';
                 } elseif ($row->status == 1) {
-                    return 'Ditolak';
+                    return '<span class="badge bg-danger">' . 'Ditolak oleh Admin' . '</span>';
+                } elseif ($row->status == 2) {
+                    return '<span class="badge bg-info">' . 'Menunggu Persetujuan Penanggung Jawab' . '</span>';
+                } elseif ($row->status == 3) {
+                    return '<span class="badge bg-danger">' . 'Ditolak oleh Penanggung Jawab' . '</span>';
                 } else {
-                    return 'Diterima';
+                    return '<span class="badge bg-success">' . 'Disetujui' . '</span>';
                 }
             })
             ->addColumn('user_id', function ($row) {
@@ -158,7 +162,7 @@ class BookingController extends Controller
 
                 return view('components.buttons.bookings', $data);
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'lisence_plate', 'status'])
             ->make(true);
     }
 
@@ -180,9 +184,34 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, $id)
     {
-        //
+        if ($request->status == NULL) {
+            $json = [
+                'msg'       => 'Mohon pilih status',
+                'status'    => false
+            ];
+        } else {
+            try {
+                DB::transaction(function () use ($request, $id) {
+                    Booking::where('id', $id)->update([
+                        'status' => $request->status,
+                    ]);
+                });
+
+                $json = [
+                    'msg' => 'Persetujuan berhasil disunting',
+                    'status' => true
+                ];
+            } catch (Exception $e) {
+                $json = [
+                    'msg'       => 'Error',
+                    'status'    => false,
+                    'e'         => $e
+                ];
+            }
+        }
+        return Response::json($json);
     }
 
     /**

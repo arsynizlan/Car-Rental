@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('driver_name');
             $table->bigInteger('user_id');
             $table->bigInteger('car_id');
-            $table->date('loan_date');
-            $table->date('returned_date');
+            $table->date('date_from');
+            $table->date('date_to');
             $table->bigInteger('status')->default('0');
             $table->timestamps();
         });

@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3>NIKEL CORP</h3>
-                        <p class="mb">Silahkan masuk ke akun Anda!</p>
+                        <p class="mb-2">Silahkan masuk ke akun Anda!</p>
 
                         @if (session()->has('loginError'))
                             <div class="alert alert-danger alert-dismissible show fade">

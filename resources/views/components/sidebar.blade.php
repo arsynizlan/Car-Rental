@@ -34,6 +34,12 @@
                     <div data-i18n="Pemesanan Mobil">Pemesanan Mobil</div>
                 </a>
             </li>
+            <li class="menu-item {{ Request::segment(1) === 'booking-histories' ? 'active' : '' }}">
+                <a href="{{ route('booking-histories.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-history'></i>
+                    <div data-i18n="Riwayat Pemesanan Mobil">Riwayat Pemesanan Mobil</div>
+                </a>
+            </li>
 
             <li class="menu-item {{ Request::segment(1) === 'service-histories' ? 'active' : '' }}">
                 <a href="{{ route('service-histories.index') }}" class="menu-link">
@@ -47,6 +53,13 @@
                 <a href="{{ route('approvals.index') }}" class="menu-link">
                     <i class='menu-icon tf-icons bx bxs-edit'></i>
                     <div data-i18n="Permintaan Persetujuan">Permintaan Persetujuan</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ Request::segment(1) === 'approval-histories' ? 'active' : '' }}">
+                <a href="{{ route('approval-histories.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-history'></i>
+                    <div data-i18n="Riwayat Persetujuan Saya">Riwayat Persetujuan Saya</div>
                 </a>
             </li>
         @endrole
