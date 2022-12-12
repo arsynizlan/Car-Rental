@@ -46,6 +46,15 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        $booking = Booking::where([
+            ['car_id', "=", $request->car_id],
+            ['date_from', '>=', $request->date_from],
+            ['date_to', '>=', $request->date_from]
+        ])->orWhere([
+            ['car_id', "=", $request->car_id],
+            ['date_from', '<', $request->date_to],
+            ['date_to', '>=', $request->date_to]
+        ])->count();
 
         if ($request->driver_name == NULL) {
             $json = [
@@ -75,6 +84,11 @@ class BookingController extends Controller
         } elseif ($request->responsible_person == NULL) {
             $json = [
                 'msg'       => 'Mohon isi Penganggung Jawab',
+                'status'    => false
+            ];
+        } elseif ($booking > 0) {
+            $json = [
+                'msg'       => 'Mobil sudah dipesan',
                 'status'    => false
             ];
         } else {
