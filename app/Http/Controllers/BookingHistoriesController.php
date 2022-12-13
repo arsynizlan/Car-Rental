@@ -77,9 +77,7 @@ class BookingHistoriesController extends Controller
                 $start = Carbon::parse($start_Date);
                 $end = Carbon::parse($end_Date);
                 $length = $start->diffInDays($end);
-                if ($length == 0) {
-                    $length += 1;
-                }
+                $length += 1;
                 return $length . ' Hari';
             })
             ->addColumn('status', function ($row) {

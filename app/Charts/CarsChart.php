@@ -17,8 +17,6 @@ class CarsChart
     public function build()
     {
         return $this->chart->pieChart()
-            ->setTitle('Kepemilikan Mobil')
-            ->setSubtitle('Tahun ' . date("Y"))
             ->addData([
                 Car::where('owner', '=', 'Milik Perusahaan')->count(),
                 Car::where('owner', '=', 'Sewaan')->count(),

@@ -20,6 +20,8 @@ class BookingController extends Controller
      */
     public function index()
     {
+
+
         $data = [
             'script' => 'components.scripts.bookings',
             'cars' => Car::all()->pluck('name', 'id'),
@@ -46,6 +48,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+
         $booking = Booking::where([
             ['car_id', "=", $request->car_id],
             ['date_from', '>=', $request->date_from],
@@ -148,9 +151,7 @@ class BookingController extends Controller
                 $start = Carbon::parse($start_Date);
                 $end = Carbon::parse($end_Date);
                 $length = $start->diffInDays($end);
-                if ($length == 0) {
-                    $length += 1;
-                }
+                $length += 1;
                 return $length . ' Hari';
             })
             ->addColumn('status', function ($row) {
