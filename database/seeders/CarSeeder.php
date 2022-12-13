@@ -39,5 +39,11 @@ class CarSeeder extends Seeder
             'lisence_plate' => 'D1114ACF',
             'owner' => 'Milik Perusahaan'
         ]);
+        Car::create([
+            'name' => 'Volvo',
+            'type' => 'Angkutan Barang',
+            'lisence_plate' => 'D1115ACF',
+            'owner' => 'Milik Perusahaan'
+        ]);
     }
 }

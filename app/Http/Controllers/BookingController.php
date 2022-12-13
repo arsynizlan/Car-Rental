@@ -52,11 +52,13 @@ class BookingController extends Controller
         $booking = Booking::where([
             ['car_id', "=", $request->car_id],
             ['date_from', '>=', $request->date_from],
-            ['date_to', '>=', $request->date_from]
+            ['date_to', '>=', $request->date_from],
+            ['status', '!=', 1],
         ])->orWhere([
             ['car_id', "=", $request->car_id],
             ['date_from', '<', $request->date_to],
-            ['date_to', '>=', $request->date_to]
+            ['date_to', '>=', $request->date_to],
+            ['status', '!=', 1],
         ])->count();
 
         if ($request->driver_name == NULL) {
