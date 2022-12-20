@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    depends_on:
+      - app
+      - db
+    volumes:
+      - ./src:/var/www/html/
+      - ./docker/nginx/:/etc/nginx/conf.d
+
+  app:
+    container_name: app
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+
+  db:
+    image: postgres
+    container_name: postgres
+    restart: unless-stopped
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: vehicle-management
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5300:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgAdmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: arsynizlanr@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root

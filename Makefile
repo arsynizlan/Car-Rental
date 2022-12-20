@@ -1,13 +1,9 @@
-setup:
-	@make up
 build:
-	composer-install
+	docker-compose build --no-cache --force-rm
 stop:
 	docker-compose stop
 up:
-	php artisan serve
-composer-update:
-	docker exec -it app bash -c "composer update"
+	docker-compose up
 
 app-terminal:
 	docker exec -it app bash

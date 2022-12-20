@@ -8,26 +8,35 @@
 </p>
 
 ## Tech Stack
-Laravel v9.43.0 with PHP 8.1
+Docker
 
-Postgresql v15 with pgAdmin4 
+Laravel 
+
+Postgresql with pgAdmin4 
 
 ## Documentation
 DB Diagram : https://dbdiagram.io/d/636dfd0ac9abfc611171e5c1
 
 
 ## How to Install and Run the Project
-PHP Required 8.1
+Docker and Docker-Compose (Required)
 
 1. Run ```git clone git@github.com:arsynizlan/Vehicle-Management-System.git```
-2. Run ```cd Vehicle-Management-System```
-3. Run ```composer install```
+2. Run ```cd src```
 3. Copy ```.env.example``` to ```.env```
-4. Run ```php artisan key:generate```
-4. Run ```php artisan migrate```
-4. Run ```php artisan db:seed```
-4. Run ```php artisan serve```
-6. You can see the project on ```127.0.0.1:8000```
+4. Run ```docker-compose build```
+5. Run ```docker-compose up -d```
+6. Run ```docker-compose exec app composer install```
+7. Run ```docker-compose exec app php artisan key:generate```
+8. Run ```docker-compose exec app php artisan migrate```
+9. Run ```docker-compose exec app php artisan db:seed```
+10. You can see the project on```127.0.0.1:8080```
+
+## How to use PostgreSQL as a database
+1. Change ```DB_CONNECTION = pgsql``` 
+2. Change ```DB_HOST = db``` 
+3. Change ```DB_PORT = 5432``` 
+4. Open PgAdmin4 ```127.0.0.1:5050``` 
 
 ## Users
 
