@@ -32,8 +32,8 @@ services:
       - ./postgresql/data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: vehicle-management
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: secret
+      POSTGRES_PASSWORD: secret
     ports:
       - "5300:5432"
 
